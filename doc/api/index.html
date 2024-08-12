@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="imageengine_helpers_dart API docs, for the Dart programming language.">
+  <title>imageengine_helpers_dart - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">imageengine_helpers_dart package</li>
+  </ol>
+  <div class="self-name">imageengine_helpers_dart</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h2 id="dart-imageengine-helpers">Dart ImageEngine Helpers</h2>
+<p>A tiny set of helpers and Dart types for building <a href="https://imageengine.io">ImageEngine</a> query URLs for your distribution.</p>
+<p>These utilities are useful if you want to use an object to declare your <a href="https://support.imageengine.io/hc/en-us/articles/360058880672-directives">directives</a> when retrieving assets from an ImageEngine distribution.</p>
+<h3 id="installation">Installation</h3>
+<p>Add this package to your <code>pubspec.yaml</code> dependencies:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  imageengine_helpers: ^1.0.0
+</code></pre>
+<p>Then run:</p>
+<pre class="language-bash"><code class="language-bash">flutter pub get
+</code></pre>
+<h3 id="types">Types:</h3>
+<pre class="language-dart"><code class="language-dart">enum IEFormat {
+  png,
+  gif,
+  jpg,
+  bmp,
+  webp,
+  jp2,
+  svg,
+  mp4,
+  jxr,
+  avif,
+  jxl,
+}
+
+enum IEFit {
+  stretch,
+  box,
+  letterbox,
+  cropbox,
+  outside,
+}
+
+class IEDirectives {
+  final int? width; // the intrinsic width of the final image
+  final int? height; // the intrinsic height of the final image
+  final int? autoWidthFallback; // if WURFL device detection should be tried with a fallback value in case it fails
+
+  final int? scaleToScreenWidth; // 0-100 float
+  final String? crop; // a string representation like "width,height,left,top"
+
+  final IEFormat? format; // the output format
+  final IEFit? fit; // the image fit in relation to the provided width/height
+
+  final int? compression; // 0-100
+  final int? sharpness; // 0-100
+  final int? rotate; // -360-360
+
+  final bool? inline; // convert image to dataURL
+  final bool? keepMeta; // keep EXIF image data
+  final bool? noOptimization; // don't apply IE optimizations
+  final bool? forceDownload; // force download
+  final double? maxDevicePixelRatio; // 1-4 float
+
+  IEDirectives({
+    this.width,
+    this.height,
+    this.autoWidthFallback,
+    this.scaleToScreenWidth,
+    this.crop,
+    this.format,
+    this.fit,
+    this.compression,
+    this.sharpness,
+    this.rotate,
+    this.inline,
+    this.keepMeta,
+    this.noOptimization,
+    this.forceDownload,
+    this.maxDevicePixelRatio,
+  });
+}
+</code></pre>
+<h3 id="example-usage">Example Usage</h3>
+<pre class="language-dart"><code class="language-dart">import 'package:imageengine_helpers/imageengine_helpers.dart';
+
+void main() {
+  IEDirectives directives = IEDirectives(
+    width: 400,
+    height: 200,
+    fit: IEFit.cropbox,
+    compression: 10,
+    inline: true,
+    format: IEFormat.png,
+    forceDownload: true,
+    maxDevicePixelRatio: 2.1,
+  );
+
+  String sourceUrl = "https://my_ie_distribution.imgeng.io/path/to_asset1.jpg";
+
+  String finalUrl = buildIEUrl(sourceUrl, directives);
+
+  print(finalUrl);
+  // Outputs: "https://my_ie_distribution.imgeng.io/path/to_asset1.jpg?imgeng=/w_400/h_200/m_cropbox/cmpr_10/in_true/f_png/dl_true"
+
+  String directivesString = buildIEDirectives(directives);
+
+  print(directivesString);
+  // Outputs: "/w_400/h_200/m_cropbox/cmpr_10/in_true/f_png/dl_true"
+
+  String queryString = buildIEQueryString(directives);
+
+  print(queryString);
+  // Outputs: "?imgeng=/w_400/h_200/m_cropbox/cmpr_10/in_true/f_png/dl_true"
+}
+</code></pre>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="imageengine_helpers_dart">
+  <span class="name"><a href="imageengine_helpers_dart/imageengine_helpers_dart-library.html">imageengine_helpers_dart</a></span> 
+
+</dt>
+<dd>Support for doing something awesome.
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li class="self-crumb">imageengine_helpers_dart package</li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">imageengine_helpers_dart</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="imageengine_helpers_dart/imageengine_helpers_dart-library.html">imageengine_helpers_dart</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    imageengine_helpers_dart
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
