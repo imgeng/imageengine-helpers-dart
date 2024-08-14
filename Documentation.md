@@ -85,7 +85,15 @@ This guide is for developers who will be maintaining or extending the `imageengi
 
    ```
 
-Generates an ImageEngine URL with the given source and directives.
+Generates a complete ImageEngine URL by combining the source URL with the processed directives.
+
+Inputs: source URL and IEDirectives object
+
+Process: Calls buildIEDirectives and buildIEQueryString
+
+Output: A fully formed ImageEngine URL with all applicable directives
+
+Handles cases where the source URL already contains query parametersGenerates an ImageEngine URL with the given source and directives.
 
 #### `buildIEDirectives`
    ```dart
@@ -123,7 +131,16 @@ Generates an ImageEngine URL with the given source and directives.
 }
 ```
 
-Converts the `IEDirectives` object into a string of URL directives.
+Transforms an IEDirectives object into a string of URL directives.
+
+Creates a map of all possible directives
+
+Filters out null values
+
+Converts enum values to strings
+
+Uses maybeCreateDirective to format each directive
+Concatenates all valid directives into a single string
 
 #### `buildIEQueryString`
 ```dart
@@ -139,7 +156,13 @@ String buildIEQueryString(String directivesString, {bool debug = false}) {
 }
 ```
 
-Wraps the directives string in the `imgeng` query parameter.
+Wraps the directives string in the imgeng query parameter.
+
+Checks if the directives string is empty.
+
+If not empty, prepends 'imgeng=' to the string.
+
+Handles debug logging for empty directive strings.
 
 #### `maybeCreateDirective`
 ```dart
@@ -166,6 +189,13 @@ String maybeCreateDirective(String directive, dynamic value,
 
 Translates each directive into its corresponding URL parameter.
 
+Uses OBJECT_TO_DIRECTIVES_MAP for translation.
+
+Handles null and zero values.
+
+Provides debug logging for invalid or unrecognized directives.
+
+Formats the directive as '/{directive}{value}'.
 
 
 ### Types
