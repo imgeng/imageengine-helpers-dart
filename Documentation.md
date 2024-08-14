@@ -73,21 +73,23 @@ This guide is for developers who will be maintaining or extending the `imageengi
 ### Core Functions
 
 #### `buildIEUrl`
-
-String buildIEUrl(String src, IEDirectives directives, {bool debug = false}) {
+   ```bash
+   String buildIEUrl(String src, IEDirectives directives, {bool debug = false}) {
   final String directivesString = buildIEDirectives(directives, debug: debug);
   final String queryString = buildIEQueryString(directivesString, debug: debug);
   final String queryPrefix =
       queryString.isEmpty ? '' : (src.contains('?') ? '&' : '?');
 
   return '$src$queryPrefix$queryString';
-}
+  }
+
+   ```
 
 Generates an ImageEngine URL with the given source and directives.
 
 #### `buildIEDirectives`
-
-String buildIEDirectives(IEDirectives directives, {bool debug = false}) {
+   ```dart
+   String buildIEDirectives(IEDirectives directives, {bool debug = false}) {
   final Map<String, dynamic> directivesMap = {
     'width': directives.width,
     'height': directives.height,
@@ -119,11 +121,12 @@ String buildIEDirectives(IEDirectives directives, {bool debug = false}) {
     return acc + maybeCreateDirective(directive, value, debug: debug);
   });
 }
+```
 
 Converts the `IEDirectives` object into a string of URL directives.
 
 #### `buildIEQueryString`
-
+```dart
 String buildIEQueryString(String directivesString, {bool debug = false}) {
   if (directivesString.isNotEmpty) {
     return 'imgeng=$directivesString';
@@ -134,12 +137,13 @@ String buildIEQueryString(String directivesString, {bool debug = false}) {
     return '';
   }
 }
+```
 
 Wraps the directives string in the `imgeng` query parameter.
 
 #### `maybeCreateDirective`
-
-String maybeCreateDirective(String directive, dynamic value, {bool debug = falsString maybeCreateDirective(String directive, dynamic value,
+```dart
+String maybeCreateDirective(String directive, dynamic value,
     {bool debug = false}) {
   final String? translatedDirective = OBJECT_TO_DIRECTIVES_MAP[directive];
 
@@ -157,7 +161,8 @@ String maybeCreateDirective(String directive, dynamic value, {bool debug = falsS
     }
     return '';
   }
-}e})
+}
+```
 
 Translates each directive into its corresponding URL parameter.
 
@@ -170,7 +175,7 @@ The `types.dart` file defines the following types:
 #### `IEFormat` (enum)
 
 Represents the various output formats supported by ImageEngine.
-
+```dart
 enum IEFormat {
   png,
   gif,
@@ -185,6 +190,7 @@ enum IEFormat {
   avif,
   jxl,
 }
+```
 
 - Used to specify the desired output format of the image.
 - Includes common image formats like PNG, JPEG, WebP, as well as more specialized formats like AVIF and JXL.
@@ -192,6 +198,7 @@ enum IEFormat {
 #### `IEFit` (enum)
 Defines the fitting methods for resizing images.
 
+```dart
 enum IEFit {
   stretch,
   box,
@@ -199,6 +206,7 @@ enum IEFit {
   cropbox,
   outside,
 }
+```
 
 - Determines how the image should be resized or cropped to fit the specified dimensions.
 - Options range from stretching the image to maintaining aspect ratio with letterboxing or cropping.
@@ -206,6 +214,7 @@ enum IEFit {
 #### `IEDirectives` (class)
 A comprehensive class that encapsulates all possible directives for image manipulation.
 
+```dart
 class IEDirectives {
   final int? width; // the intrinsic width of the final image
   final int? height; // the intrinsic height of the final image
@@ -261,7 +270,7 @@ class IEDirectives {
     this.maxDevicePixelRatio,
   });
 }
-
+```
 
 
 - Represents all possible image manipulation directives supported by ImageEngine.
