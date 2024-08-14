@@ -44,7 +44,7 @@ This guide is for developers who will be maintaining or extending the `imageengi
 ## Understanding the Codebase
 
 ### Directory Structure
-
+```bash
 ├── lib/
 │ ├── src/
 │ │ ├── helpers.dart
@@ -55,7 +55,7 @@ This guide is for developers who will be maintaining or extending the `imageengi
 ├── pubspec.yaml
 ├── README.md
 └── LICENSE
-
+```
 ### Key Files
 
 - **`lib/src/helpers.dart`**:
