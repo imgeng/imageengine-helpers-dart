@@ -3,13 +3,11 @@ import 'types.dart';
 /* MAPPING from `IEDirectives` to actual ImageEngine URL directives: */
 /* https://support.imageengine.io/hc/en-us/articles/360058880672-directives */
 
-const Map<String, String> OBJECT_TO_DIRECTIVES_MAP = {
+const Map<String, String> objectToDirectivesMap = {
   'width': 'w',
   'height': 'h',
   'autoWidthWithFallback': 'w_auto',
-  'auto_width_fallback': 'w_auto',
   'scaleToScreenWidth': 'pc',
-  'scale_to_screen_width': 'pc',
   'crop': 'cr',
   'outputFormat': 'f',
   'format': 'f',
@@ -20,11 +18,8 @@ const Map<String, String> OBJECT_TO_DIRECTIVES_MAP = {
   'rotate': 'r',
   'inline': 'in',
   'keepMeta': 'meta',
-  'keep_meta': 'meta',
   'noOptimization': 'pass',
-  'no_optimization': 'pass',
-  'force_download': 'dl',
-  'max_device_pixel_ratio': 'maxdpr',
+  'forceDownload': 'dl',
   'maxDevicePixelRatio': 'maxdpr',
 };
 
@@ -42,9 +37,7 @@ String buildIEDirectives(IEDirectives directives, {bool debug = false}) {
     'width': directives.width,
     'height': directives.height,
     'autoWidthWithFallback': directives.autoWidthFallback,
-    'auto_width_fallback': directives.auto_width_fallback,
     'scaleToScreenWidth': directives.scaleToScreenWidth,
-    'scale_to_screen_width': directives.scale_to_screen_width,
     'crop': directives.crop,
     'outputFormat': directives.outputFormat?.toString().split('.').last,
     'format': directives.format?.toString().split('.').last,
@@ -55,11 +48,8 @@ String buildIEDirectives(IEDirectives directives, {bool debug = false}) {
     'rotate': directives.rotate,
     'inline': directives.inline,
     'keepMeta': directives.keepMeta,
-    'keep_meta': directives.keep_meta,
     'noOptimization': directives.noOptimization,
-    'no_optimization': directives.no_optimization,
-    'force_download': directives.force_download,
-    'max_device_pixel_ratio': directives.max_device_pixel_ratio,
+    'forceDownload': directives.forceDownload,
     'maxDevicePixelRatio': directives.maxDevicePixelRatio,
   };
 
@@ -83,7 +73,7 @@ String buildIEQueryString(String directivesString, {bool debug = false}) {
 
 String maybeCreateDirective(String directive, dynamic value,
     {bool debug = false}) {
-  final String? translatedDirective = OBJECT_TO_DIRECTIVES_MAP[directive];
+  final String? translatedDirective = objectToDirectivesMap[directive];
 
   if (translatedDirective != null && (value != null || value == 0)) {
     return '/${translatedDirective}_$value';
