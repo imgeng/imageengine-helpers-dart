@@ -5,19 +5,19 @@ void main() {
   final IEDirectives base = IEDirectives(
     width: 200,
     height: 500,
-    auto_width_fallback: 200,
-    scale_to_screen_width: 50,
-    crop: '150,300,0,0', // assuming this is a string in Dart
-    format: IEFormat.jpg,
-    fit: IEFit.box,
+    autoWidthFallback: 200,
+    scaleToScreenWidth: 50,
+    crop: '150,300,0,0',
+    outputFormat: IEFormat.jpg,
+    fitMethod: IEFit.box,
     compression: 50,
     sharpness: 20,
     rotate: 0,
     inline: true,
-    keep_meta: true,
-    no_optimization: true,
-    force_download: true,
-    max_device_pixel_ratio: 2.1,
+    keepMeta: true,
+    noOptimization: true,
+    forceDownload: true,
+    maxDevicePixelRatio: 2.1,
   );
 
   final String expectedDirectivesString =
@@ -28,18 +28,18 @@ void main() {
       expect(maybeCreateDirective('width', base.width), isNot(equals("")));
       expect(maybeCreateDirective('height', base.height), isNot(equals("")));
       expect(
-          maybeCreateDirective('auto_width_fallback', base.auto_width_fallback),
+          maybeCreateDirective('autoWidthWithFallback', base.autoWidthFallback),
           isNot(equals("")));
       expect(
           maybeCreateDirective(
-              'scale_to_screen_width', base.scale_to_screen_width),
+              'scaleToScreenWidth', base.scaleToScreenWidth),
           isNot(equals("")));
       expect(maybeCreateDirective('crop', base.crop), isNot(equals("")));
       expect(
           maybeCreateDirective(
-              'format', base.format?.toString().split('.').last),
+              'outputFormat', base.outputFormat?.toString().split('.').last),
           isNot(equals("")));
-      expect(maybeCreateDirective('fit', base.fit?.toString().split('.').last),
+      expect(maybeCreateDirective('fitMethod', base.fitMethod?.toString().split('.').last),
           isNot(equals("")));
       expect(maybeCreateDirective('compression', base.compression),
           isNot(equals("")));
@@ -48,14 +48,14 @@ void main() {
       expect(maybeCreateDirective('rotate', base.rotate), isNot(equals("")));
       expect(maybeCreateDirective('inline', base.inline), isNot(equals("")));
       expect(
-          maybeCreateDirective('keep_meta', base.keep_meta), isNot(equals("")));
-      expect(maybeCreateDirective('no_optimization', base.no_optimization),
+          maybeCreateDirective('keepMeta', base.keepMeta), isNot(equals("")));
+      expect(maybeCreateDirective('noOptimization', base.noOptimization),
           isNot(equals("")));
-      expect(maybeCreateDirective('force_download', base.force_download),
+      expect(maybeCreateDirective('forceDownload', base.forceDownload),
           isNot(equals("")));
       expect(
           maybeCreateDirective(
-              'max_device_pixel_ratio', base.max_device_pixel_ratio),
+              'maxDevicePixelRatio', base.maxDevicePixelRatio),
           isNot(equals("")));
     });
 
@@ -82,19 +82,19 @@ void main() {
       final IEDirectives newBase = IEDirectives(
         width: null,
         height: null,
-        auto_width_fallback: 200,
-        scale_to_screen_width: 50,
+        autoWidthFallback: 200,
+        scaleToScreenWidth: 50,
         crop: '150,300,0,0',
-        format: IEFormat.jpg,
-        fit: IEFit.box,
+        outputFormat: IEFormat.jpg,
+        fitMethod: IEFit.box,
         compression: 50,
         sharpness: 20,
         rotate: 0,
         inline: true,
-        keep_meta: true,
-        no_optimization: true,
-        force_download: true,
-        max_device_pixel_ratio: 2.1,
+        keepMeta: true,
+        noOptimization: true,
+        forceDownload: true,
+        maxDevicePixelRatio: 2.1,
       );
 
       final String newExpectedDirectives =
@@ -127,8 +127,8 @@ void main() {
     inline: true,
     keepMeta: true,
     noOptimization: true,
-    force_download: true,
-    max_device_pixel_ratio: 2.1,
+    forceDownload: true,
+    maxDevicePixelRatio: 2.1,
   );
 
   group('URL base alternative key naming', () {
