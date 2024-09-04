@@ -139,4 +139,72 @@ void main() {
           equals('imgeng=$expectedDirectivesString'));
     });
   });
+
+  group('IEDirectives', () {
+    test('toMap() converts all properties correctly', () {
+      final directives = IEDirectives(
+        width: 100,
+        height: 200,
+        outputFormat: IEFormat.jpg,
+        fitMethod: IEFit.box,
+        compression: 75,
+        inline: true,
+        maxDevicePixelRatio: 2.0,
+      );
+
+      final map = directives.toMap();
+
+      expect(map['width'], equals(100));
+      expect(map['height'], equals(200));
+      expect(map['outputFormat'], equals('jpg'));
+      expect(map['fitMethod'], equals('box'));
+      expect(map['compression'], equals(75));
+      expect(map['inline'], isTrue);
+      expect(map['maxDevicePixelRatio'], equals(2.0));
+    });
+
+    test('fromMap() creates IEDirectives correctly', () {
+      final map = {
+        'width': 100,
+        'height': 200,
+        'outputFormat': 'jpg',
+        'fitMethod': 'box',
+        'compression': 75,
+        'inline': true,
+        'maxDevicePixelRatio': 2.0,
+      };
+
+      final directives = IEDirectives.fromMap(map);
+
+      expect(directives.width, equals(100));
+      expect(directives.height, equals(200));
+      expect(directives.outputFormat, equals(IEFormat.jpg));
+      expect(directives.fitMethod, equals(IEFit.box));
+      expect(directives.compression, equals(75));
+      expect(directives.inline, isTrue);
+      expect(directives.maxDevicePixelRatio, equals(2.0));
+    });
+
+    test('toMap() and fromMap() are reversible', () {
+      final original = IEDirectives(
+        width: 100,
+        height: 200,
+        outputFormat: IEFormat.webp,
+        fitMethod: IEFit.cropbox,
+        compression: 80,
+        inline: false,
+        maxDevicePixelRatio: 1.5,
+      );
+
+      final recreated = IEDirectives.fromMap(original.toMap());
+
+      expect(recreated.width, equals(original.width));
+      expect(recreated.height, equals(original.height));
+      expect(recreated.outputFormat, equals(original.outputFormat));
+      expect(recreated.fitMethod, equals(original.fitMethod));
+      expect(recreated.compression, equals(original.compression));
+      expect(recreated.inline, equals(original.inline));
+      expect(recreated.maxDevicePixelRatio, equals(original.maxDevicePixelRatio));
+    });
+  });
 }
