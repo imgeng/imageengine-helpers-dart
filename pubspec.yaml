@@ -1,6 +1,6 @@
 name: imageengine_helpers_dart
 description: A Dart library for interacting with ImageEngine CDN, providing helper functions for image manipulation and URL generation.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/imgeng/imageengine-helpers-dart
 
 environment:
