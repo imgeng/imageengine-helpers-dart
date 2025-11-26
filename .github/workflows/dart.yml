@@ -22,7 +22,7 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@daef289245bc5d4ab7864e0788a58108a9be6c99
+      - uses: dart-lang/setup-dart@0bdb60234eb044854c1c73fb77b0f063cf290512
 
       - name: Install dependencies
         run: dart pub get
